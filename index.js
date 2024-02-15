@@ -59,7 +59,7 @@ const listingsController = new ListingsController(
   like
 );
 const listingImagesController = new ListingImagesController(listing_image);
-const likesController = new LikesController(like,listing,listing_image, user);
+const likesController = new LikesController(like, listing, listing_image, user);
 const reviewsController = new ReviewsController(review);
 
 // INIT ROUTERS
@@ -86,16 +86,16 @@ app.use("/chat", chatRouter);
 app.use("/likes", likesRouter);
 app.use("/reviews", reviewRouter);
 
-
-
-
 // Start the server
 const server = app.listen(PORT, () => {
   console.log(`Express app listening on port ${PORT}!`);
 });
 
 //SOCKET
-const io = require("socket.io")(server, {
+const io = require("socket.io", {
+  rememberTransport: false,
+  transports: ["WebSocket", "Flash Socket", "AJAX long-polling"],
+})(server, {
   cors: {
     origin: true,
     methods: ["GET", "PUT", "POST", "DELETE"],
