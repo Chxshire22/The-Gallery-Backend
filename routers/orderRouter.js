@@ -1,16 +1,16 @@
 const express = require("express");
 const router = express.Router();
 
-class ReviewsRouter {
+class OrderRouter {
   constructor(controller) {
     this.controller = controller;
   }
   routes() {
     router.post("/", this.controller.createOne);
-    router.delete("/delete/:listingId/:userId", this.controller.deleteOne);
+    router.delete("/delete/:listingId", this.controller.deleteOne);
 
     return router;
   }
 }
 
-module.exports = ReviewsRouter;
+module.exports = OrderRouter;
