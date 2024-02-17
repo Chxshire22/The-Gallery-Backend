@@ -98,6 +98,8 @@ class UsersController extends BaseController {
   async updateAddress(req, res) {
     const { address } = req.body;
     const { id } = req.params;
+    console.log("HERE");
+    console.log(address, id);
     try {
       await this.model.update(
         {
@@ -105,12 +107,13 @@ class UsersController extends BaseController {
         },
         {
           where: {
-            id,
+            id: id,
           },
         }
       );
-      res(200).send("Address updated");
+      res.status(200).send("Address updated");
     } catch (error) {
+      console.log(error)
       res.status(400).json(error);
     }
   }

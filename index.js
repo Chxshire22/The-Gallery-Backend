@@ -61,7 +61,7 @@ const listingsController = new ListingsController(
 const listingImagesController = new ListingImagesController(listing_image);
 const likesController = new LikesController(like, listing, listing_image, user);
 const reviewsController = new ReviewsController(review);
-const orderController = new OrderController(order);
+const orderController = new OrderController(order,listing,user,listing_image);
 
 // INIT ROUTERS
 const usersRouter = new UsersRouter(usersController).routes();
