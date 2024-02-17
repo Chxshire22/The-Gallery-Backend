@@ -12,6 +12,7 @@ const ListingImagesRouter = require("./routers/listingImagesRouter");
 const ChatRouter = require("./routers/chatRouter");
 const LikesRouter = require("./routers/likesRouter");
 const ReviewsRouter = require("./routers/reviewsRouter");
+const OrderRouter = require("./routers/orderRouter");
 
 // IMPORT CONTROLLER
 const UsersController = require("./controllers/userController");
@@ -21,6 +22,7 @@ const ListingImagesController = require("./controllers/listingImagesController")
 const ChatController = require("./controllers/chatController");
 const LikesController = require("./controllers/likesController");
 const ReviewsController = require("./controllers/reviewsController");
+const OrderController = require("./controllers/orderController");
 
 // IMPORT DB
 const db = require("./models/index");
@@ -38,7 +40,6 @@ const {
 } = db;
 
 // INIT CONTROLLER
-
 const usersController = new UsersController(user);
 const chatController = new ChatController(
   chatroom_message,
@@ -47,7 +48,6 @@ const chatController = new ChatController(
   listing,
   user
 );
-// ,like, listing, chatroom, chatroom_message, order
 const categoriesController = new CategoriesController(category);
 const listingsController = new ListingsController(
   listing,
@@ -60,6 +60,7 @@ const listingsController = new ListingsController(
 const listingImagesController = new ListingImagesController(listing_image);
 const likesController = new LikesController(like, listing, listing_image, user);
 const reviewsController = new ReviewsController(review);
+const orderController = new OrderController(order);
 
 // INIT ROUTERS
 const usersRouter = new UsersRouter(usersController).routes();
@@ -71,6 +72,7 @@ const listingImagesRouter = new ListingImagesRouter(
 const chatRouter = new ChatRouter(chatController).routes();
 const likesRouter = new LikesRouter(likesController).routes();
 const reviewRouter = new ReviewsRouter(reviewsController).routes();
+const orderRouter = new OrderRouter(orderController).routes();
 
 // Middleware
 app.use(cors());
@@ -84,6 +86,7 @@ app.use("/listing-images", listingImagesRouter);
 app.use("/chat", chatRouter);
 app.use("/likes", likesRouter);
 app.use("/reviews", reviewRouter);
+app.use("/order", orderRouter);
 
 const http = require("http").Server(app);
 const socketIO = require("socket.io")(http, {
