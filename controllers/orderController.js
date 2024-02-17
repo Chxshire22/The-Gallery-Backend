@@ -26,7 +26,7 @@ class OrderController {
       const result = await this.model.findByPk(id);
       res.status(200).json(result);
     } catch (error) {
-      res.status(400).json(error)
+      res.status(400).json(error);
     }
   };
 
@@ -34,6 +34,8 @@ class OrderController {
     const { userId } = req.params;
     try {
       const getUserSales = await this.model.findAll({
+        order: [["updatedAt", "DESC"]],
+
         include: [
           {
             model: this.listingModel,
@@ -60,6 +62,8 @@ class OrderController {
     const { userId } = req.params;
     try {
       const getUserPurchases = await this.model.findAll({
+        order: [["updatedAt", "DESC"]],
+
         where: {
           buyerId: userId,
         },
