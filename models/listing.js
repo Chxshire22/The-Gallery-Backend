@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.chatroom, { foreignKey: "listingId" });
       this.hasMany(models.review, { foreignKey: "listingId" });
       this.hasMany(models.like, { foreignKey: "listingId" });
+      this.hasMany(models.order, { foreignKey: "listingId" });
       this.hasMany(models.listing_image, {
         foreignKey: "listingId",
         onDelete: "CASCADE",
