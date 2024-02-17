@@ -13,8 +13,9 @@ class OrderRouter {
     router.put(
       "/buyer-received/:buyerReceived/:id",
       this.controller.updateReceived
-    );
-    router.delete("/delete/:listingId", this.controller.deleteOne);
+      );
+      router.delete("/delete/:listingId", this.controller.deleteOne);
+      router.get("/:id", this.controller.getOne);
 
     return router;
   }
