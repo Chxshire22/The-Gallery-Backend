@@ -2,7 +2,6 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 const PORT = 3000;
-
 const app = express();
 
 // IMPORT ROUTER
@@ -86,26 +85,19 @@ app.use("/chat", chatRouter);
 app.use("/likes", likesRouter);
 app.use("/reviews", reviewRouter);
 
-// Start the server
-const server = app.listen(PORT, () => {
-  console.log(`Express app listening on port ${PORT}!`);
+const http = require("http").Server(app);
+const socketIO = require("socket.io")(http, {
+  cors: { origin: "http://localhost:5173" },
+});
+http.listen(3000, () => {
+  console.log("Application listening to port 3000");
 });
 
-//SOCKET
-const io = require("socket.io", {
-  rememberTransport: false,
-  transports: ["WebSocket", "Flash Socket", "AJAX long-polling"],
-})(server, {
-  cors: {
-    origin: true,
-    methods: ["GET", "PUT", "POST", "DELETE"],
-  },
-});
-
-io.on("connection", (socket) => {
+socketIO.on("connection", (socket) => {
   console.log(`New connection made, the socket id is: ${socket.id}`);
 
   socket.on("send_message", (data) => {
+    console.log("sending message BE");
     socket.broadcast.emit("receive_message", data);
   });
 });
