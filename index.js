@@ -89,13 +89,18 @@ app.use("/likes", likesRouter);
 app.use("/reviews", reviewRouter);
 app.use("/order", orderRouter);
 
+
 // Start the server
 const server = app.listen(PORT, () => {
   console.log(`Express app listening on port ${PORT}!`);
 });
 
-// SOCKET
-const io = require("socket.io")(server, {
+
+//SOCKET
+const io = require("socket.io", {
+  rememberTransport: false,
+  transports: ["WebSocket", "Flash Socket", "AJAX long-polling"],
+})(server, {
   cors: {
     origin: true,
     methods: ["GET", "PUT", "POST", "DELETE"],
