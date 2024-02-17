@@ -24,6 +24,7 @@ class UsersRouter {
       this.controller.getByUsernameExistingUser.bind(this.controller)
     );
     router.post("/", this.controller.createOne.bind(this.controller));
+    router.put("/address/:id", this.controller.updateAddress.bind(this.controller));
     router.put("/:id", this.controller.updateOne.bind(this.controller));
     return router;
   }

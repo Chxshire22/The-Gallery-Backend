@@ -95,6 +95,26 @@ class UsersController extends BaseController {
     }
   }
 
+  async updateAddress(req, res) {
+    const { address } = req.body;
+    const { id } = req.params;
+    try {
+      await this.model.update(
+        {
+          address,
+        },
+        {
+          where: {
+            id,
+          },
+        }
+      );
+      res(200).send("Address updated");
+    } catch (error) {
+      res.status(400).json(error);
+    }
+  }
+
   async updateOne(req, res) {
     const {
       email,
