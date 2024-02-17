@@ -5,10 +5,11 @@ class OrderController {
 
   // CREATE ORDER
   createOne = async (req, res) => {
-    const { listingId } = req.body;
+    const { listingId, buyerId } = req.body;
     try {
       const result = await this.model.create({
         listingId,
+        buyerId,
       });
       res.status(200).json(result);
     } catch (error) {

@@ -87,7 +87,7 @@ app.use("/listing-images", listingImagesRouter);
 app.use("/chat", chatRouter);
 app.use("/likes", likesRouter);
 app.use("/reviews", reviewRouter);
-app.use("/order", orderRouter);
+app.use("/orders", orderRouter);
 
 
 // Start the server
