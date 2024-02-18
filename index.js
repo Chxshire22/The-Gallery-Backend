@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const app = express();
 
 // IMPORT ROUTER
@@ -60,7 +60,12 @@ const listingsController = new ListingsController(
 const listingImagesController = new ListingImagesController(listing_image);
 const likesController = new LikesController(like, listing, listing_image, user);
 const reviewsController = new ReviewsController(review);
-const orderController = new OrderController(order,listing,user,listing_image);
+const orderController = new OrderController(
+  order,
+  listing,
+  user,
+  listing_image
+);
 
 // INIT ROUTERS
 const usersRouter = new UsersRouter(usersController).routes();
@@ -92,7 +97,7 @@ const http = require("http").Server(app);
 const socketIO = require("socket.io")(http, {
   cors: { origin: "http://localhost:5173" },
 });
-http.listen(3000, () => {
+http.listen({ port: 3000, host: "0.0.0.0" }, () => {
   console.log("Application listening to port 3000");
 });
 
