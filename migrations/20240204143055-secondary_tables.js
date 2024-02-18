@@ -240,7 +240,7 @@ module.exports = {
      */
     await queryInterface.dropTable("orders");
     await queryInterface.dropTable("chat_images");
-    await queryInterface.dropTable("listing_photos");
+    await queryInterface.dropTable("listing_images");
     await queryInterface.dropTable("listings");
     await queryInterface.dropTable("chatroom_messages");
     await queryInterface.dropTable("chatroom");
