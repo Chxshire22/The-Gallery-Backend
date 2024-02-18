@@ -60,7 +60,7 @@ const listingsController = new ListingsController(
 const listingImagesController = new ListingImagesController(listing_image);
 const likesController = new LikesController(like, listing, listing_image, user);
 const reviewsController = new ReviewsController(review);
-const orderController = new OrderController(order);
+const orderController = new OrderController(order,listing,user,listing_image);
 
 // INIT ROUTERS
 const usersRouter = new UsersRouter(usersController).routes();
@@ -86,7 +86,7 @@ app.use("/listing-images", listingImagesRouter);
 app.use("/chat", chatRouter);
 app.use("/likes", likesRouter);
 app.use("/reviews", reviewRouter);
-app.use("/order", orderRouter);
+app.use("/orders", orderRouter);
 
 const http = require("http").Server(app);
 const socketIO = require("socket.io")(http, {

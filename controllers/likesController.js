@@ -51,7 +51,7 @@ class LikesController {
                 limit: 1,
                 attributes: ["url"],
               },
-              { model: this.listingImageModel, attributes: ["url"], limit: 1 },
+              // { model: this.listingImageModel, attributes: ["url"], limit: 1 },
               {
                 model: this.userModel,
                 as: "seller",
