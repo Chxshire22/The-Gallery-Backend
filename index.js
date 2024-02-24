@@ -3,6 +3,13 @@ const cors = require("cors");
 require("dotenv").config();
 const PORT = process.env.PORT || 3000;
 const app = express();
+const { auth } = require("express-oauth2-jwt-bearer");
+
+//checking for required scopes for specific route
+const checkJwt = auth({
+  audience: process.env.AUTH_AUDIENCE,
+  issuerBaseURL: process.env.AUTH_ISSUER_BASE_URL,
+});
 
 // IMPORT ROUTER
 const UsersRouter = require("./routers/usersRouter");
@@ -68,16 +75,23 @@ const orderController = new OrderController(
 );
 
 // INIT ROUTERS
-const usersRouter = new UsersRouter(usersController).routes();
-const categoriesRouter = new CategoriesRouter(categoriesController).routes();
-const listingsRouter = new ListingsRouter(listingsController).routes();
-const listingImagesRouter = new ListingImagesRouter(
-  listingImagesController
+const usersRouter = new UsersRouter(usersController, checkJwt).routes();
+const categoriesRouter = new CategoriesRouter(
+  categoriesController,
+  checkJwt
 ).routes();
-const chatRouter = new ChatRouter(chatController).routes();
-const likesRouter = new LikesRouter(likesController).routes();
-const reviewRouter = new ReviewsRouter(reviewsController).routes();
-const orderRouter = new OrderRouter(orderController).routes();
+const listingsRouter = new ListingsRouter(
+  listingsController,
+  checkJwt
+).routes();
+const listingImagesRouter = new ListingImagesRouter(
+  listingImagesController,
+  checkJwt
+).routes();
+const chatRouter = new ChatRouter(chatController, checkJwt).routes();
+const likesRouter = new LikesRouter(likesController, checkJwt).routes();
+const reviewRouter = new ReviewsRouter(reviewsController, checkJwt).routes();
+const orderRouter = new OrderRouter(orderController, checkJwt).routes();
 
 // Middleware
 app.use(cors());
@@ -95,9 +109,9 @@ app.use("/orders", orderRouter);
 
 const http = require("http").Server(app);
 const socketIO = require("socket.io")(http, {
-  cors: { origin: "http://localhost:5173" },
+  cors: { origin: "*" },
 });
-http.listen({ port: 3000, host: "0.0.0.0" }, () => {
+http.listen(PORT, () => {
   console.log("Application listening to port 3000");
 });
 
