@@ -1,7 +1,9 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
+
 const PORT = process.env.PORT || 3000;
+
 const app = express();
 const { auth } = require("express-oauth2-jwt-bearer");
 
@@ -111,6 +113,7 @@ const http = require("http").Server(app);
 const socketIO = require("socket.io")(http, {
   cors: { origin: "*" },
 });
+
 http.listen(PORT, () => {
   console.log("Application listening to port 3000");
 });
